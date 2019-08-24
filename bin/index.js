@@ -3,8 +3,6 @@
 var shell = require("shelljs");
 var program = require("commander");
 
-shell.echo("************ index ***************");
-
 program
   .arguments("init-project")
   .action(argument => {
@@ -12,10 +10,10 @@ program
 
     switch (argument) {
       case "init-project":
-        require("./init-react-project");
+        require("./inti-react-project/index");
         break;
       case "add-component":
-        require("./add-component");
+        require("./add-component/index");
         break;
       default:
         shell.echo(`${argument} not found`);
