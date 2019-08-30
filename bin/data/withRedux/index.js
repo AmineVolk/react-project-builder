@@ -1,4 +1,4 @@
-module.exports.index = {
+module.exports.indexWithRedux = {
 
     content: `
     import React from "react";
