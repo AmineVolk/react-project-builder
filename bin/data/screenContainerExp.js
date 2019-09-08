@@ -1,6 +1,5 @@
 const getScreenContainerExp = (name) => {
-    return `
-    import actions from "app/duck/actions";
+    return `import actions from "@app/duck/actions";
     import { connect } from "react-redux";
     import ${name} from "./index";
     const mapStateToProps = state => {
@@ -23,8 +22,6 @@ const getScreenContainerExp = (name) => {
     export default connect(
         mapStateToProps,
         mapDispatchToProps
-    )(${name});
-     
-  `;
+    )(${name});`;
 };
 module.exports = { getScreenContainerExp };

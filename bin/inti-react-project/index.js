@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 var shell = require("shelljs");
+shell.config.silent=true;
 var program = require("commander");
 const { createPackageFile } = require("./createPackageFile");
 const { history } = require("../data/history.js");
@@ -18,16 +19,20 @@ const { indexCss } = require("../data/indexCss.js");
 const { App } = require("../data/App")
 const { footer } = require("../data/footer")
 const { navBar } = require("../data/navBar")
-const { createInitialScreens } = require("./createInitialScreens")
+const { createInitialScreens } = require("./createInitialScreens");
+const jsconfig =require("../data/jsconfig.js");
+const pretty = require("pretty-format")
+const {checkInitProjectOptions}=require("../helper/checkOptions")
 program
   .arguments("init-project")
   .option("--name <projectname>", "The project name")
   .option("--use-redux <yes/no>", "Project use redux")
-  .action(() => {
-    shell.echo(`initializing project ${program.name} ....`);
-
-    shell.echo(`** isUsing redux  ${JSON.stringify(program.useRedux)}`);
-    const isUseRedux = program.useRedux != undefined && program.useRedux == "yes";
+  .action((arg,options) => {
+  
+    if(checkInitProjectOptions(options)){
+      shell.echo(`Initializing project ${program.name} ....`);
+      const isUseRedux = program.useRedux != undefined && program.useRedux === "yes";
+  
     //createPackageFile(program.name, isUseRedux);
 
     //init folders
@@ -40,50 +45,52 @@ program
     shell.mkdir("src/app/res")
     shell.mkdir("public");
 
-    //init files import { Route, Switch } from "react-router-dom";
-    shell.echo(R.content).to("src/app/res/R.js")
-    shell.echo(indexHtml.content).to("public/index.html");
-    shell.echo("NODE_PATH=./src").to(".env")
-    shell.echo(history.content).to("src/app/history.js");
+    //init files
+    shell.ShellString(R.content).to("src/app/res/R.js")
+    shell.ShellString(indexHtml.content).to("public/index.html");
+    shell.ShellString(history.content).to("src/app/history.js");
+    shell.ShellString(jsconfig.content).to("jsconfig.json");
+
     shell.mkdir("src/app/screens/screenExp1");
     shell.mkdir("src/app/screens/home");
 
     if (isUseRedux) {
       createDuckFolder();
       //create combineReducers
-      shell.echo(reducers.content).to("src/reducers.js");
+      shell.ShellString(reducers.content).to("src/reducers.js");
       //create index with redux
-      shell.echo(indexWithRedux.content).to("src/index.js")
-      shell.echo(routesWithRedux.content).to("src/app/Routes.js");
+      shell.ShellString(indexWithRedux.content).to("src/index.js")
+      shell.ShellString(routesWithRedux.content).to("src/app/Routes.js");
 
     } else {
       //create index without redux
-      shell.echo(indexWithoutRedux.content).to("src/index.js")
+      shell.ShellString(indexWithoutRedux.content).to("src/index.js")
       //create routes
-      shell.echo(routes.content).to("src/app/Routes.js");
+      shell.ShellString(routes.content).to("src/app/Routes.js");
     }
 
-    shell.echo(indexCss.content).to("src/index.css")
-    shell.echo(App.content).to("src/app/App.js");
+    shell.ShellString(indexCss.content).to("src/index.css")
+    shell.ShellString(App.content).to("src/app/App.js");
 
     //create 2 screens for exp
     createInitialScreens(isUseRedux)
 
     //create simple navBar
     shell.mkdir("src/app/components/navBar");
-    shell.echo(navBar.content).to("src/app/components/navBar/index.jsx");
-
+    shell.ShellString(navBar.content).to("src/app/components/navBar/index.jsx");
 
     //create simple footer
     shell.mkdir("src/app/components/footer");
-    shell.echo(footer.content).to("src/app/components/footer/index.jsx");
+    shell.ShellString(footer.content).to("src/app/components/footer/index.jsx");
 
     //create res folder
-    shell.echo(Colors.content).to("src/app/res/Colors.js")
-    shell.mkdir("src/app/res")
+    shell.ShellString(Colors.content).to("src/app/res/Colors.js");
     shell.touch("src/app/res/Strings.js");
-
-
+    
+    //create config for the project
+    shell.ShellString(JSON.stringify({isUseRedux})).to("src/app/config/rpbConfig.json");
+    shell.echo(`Project ${program.name} created successfully`);
+    }
 
   })
   .parse(process.argv);

@@ -5,19 +5,32 @@ const packageFile = {
   version: "1.0.0",
   description: "",
   main: "index.js",
-  scripts: {
-    start: "react-scripts start",
-    build: "react-scripts build",
-    test: "react-scripts test",
-    eject: "react-scripts eject"
+  "scripts": {
+    "start": "cra-alias start",
+    "build": "cra-alias build",
+    "test": "cra-alias test",
+    "eject": "cra-alias eject"
   },
-  dependencies: {}
+  dependencies: {},
+  
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 };
 
 const createPackageFile = (projectName, useRedux) => {
   packageFile.name = projectName;
   shell.touch("package.json");
-  shell.echo(JSON.stringify(packageFile)).to("package.json");
+  shell.ShellString(packageFile).to("package.json");
   shell.echo("instaling dependencies...");
   if (useRedux) {
     shell.exec("npm i redux");
@@ -28,7 +41,8 @@ const createPackageFile = (projectName, useRedux) => {
   shell.exec("npm i react-router");
   shell.exec("npm i react-router-dom");
   shell.exec("npm i react-scripts");
-
+  shell.exec("npm i --save module-alias")
+  shell.exec("npm i -D cra-alias")
   shell.echo("dependencies installed");
 };
 

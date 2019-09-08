@@ -6,9 +6,9 @@ const { reducer } = require("../data/withRedux/reducer")
 
 const createDuckFolder = () => {
     shell.mkdir("src/app/duck");
-    shell.echo(actions.content).to("src/app/duck/actions.js")
-    shell.echo(types.content).to("src/app/duck/types.js")
-    shell.echo(reducer.content).to("src/app/duck/reducer.js")
+    shell.ShellString(actions.content).to("src/app/duck/actions.js")
+    shell.ShellString(types.content).to("src/app/duck/types.js")
+    shell.ShellString(reducer.content).to("src/app/duck/reducer.js")
 
 };
 

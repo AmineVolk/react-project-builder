@@ -1,10 +1,8 @@
 module.exports.App = {
-    content: `
-import React from "react";
-import Footer from "./components/footer";
-import NavBar from "./components/navBar";
+    content: `import React from "react";
+import Footer from "@components/footer";
+import NavBar from "@components/navBar";
 import Routes from "./Routes";
-
 export default function App(props) {
     return <div style={{ height: "100%" }}>
         <div style={{
@@ -20,7 +18,5 @@ export default function App(props) {
 
         </div>
     </div>;
-}
-
-`
+}`
 }
