@@ -12,7 +12,6 @@ const packageFile = {
     "eject": "cra-alias eject"
   },
   dependencies: {},
-  
   "browserslist": {
     "production": [
       ">0.2%",
@@ -30,7 +29,7 @@ const packageFile = {
 const createPackageFile = (projectName, useRedux) => {
   packageFile.name = projectName;
   shell.touch("package.json");
-  shell.ShellString(packageFile).to("package.json");
+  shell.ShellString(JSON.stringify(packageFile)).to("package.json");
   shell.echo("instaling dependencies...");
   if (useRedux) {
     shell.exec("npm i redux");
