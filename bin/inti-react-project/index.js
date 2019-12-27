@@ -21,6 +21,9 @@ const { footer } = require("../data/footer")
 const { navBar } = require("../data/navBar")
 const { createInitialScreens } = require("./createInitialScreens");
 const jsconfig = require("../data/jsconfig.js");
+const eslint = require("../data/eslintrc");
+const editorconfig = require("../data/editorconfig");
+
 const pretty = require("pretty-format")
 const { checkInitProjectOptions } = require("../helper/checkOptions")
 program
@@ -52,6 +55,9 @@ program
       shell.ShellString(indexHtml.content).to("public/index.html");
       shell.ShellString(history.content).to("src/app/history.js");
       shell.ShellString(jsconfig.content).to("jsconfig.json");
+      shell.ShellString(JSON.stringify(eslint.content)).to(".eslintrc.json");
+      shell.ShellString(editorconfig.content).to(".editorconfig");
+
 
       shell.mkdir("src/app/screens/screenExp1");
       shell.mkdir("src/app/screens/home");

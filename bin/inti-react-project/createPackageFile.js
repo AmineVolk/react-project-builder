@@ -42,6 +42,12 @@ const createPackageFile = (projectName, useRedux) => {
   shell.exec("npm i react-scripts");
   shell.exec("npm i --save module-alias")
   shell.exec("npm i -D cra-alias")
+  // eslint dependancies  eslint-plugin-react
+  shell.exec("npm i eslint --save-dev");
+  shell.exec("npm i eslint-plugin-prettier --save-dev");
+  shell.exec("npm i eslint-plugin-react --save-dev");
+  shell.exec("npm i prettier --save-dev");
+
   shell.echo("dependencies installed");
 };
 
