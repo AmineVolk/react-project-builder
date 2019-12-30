@@ -1,15 +1,19 @@
 {
-  "name": "rpb",
-  "version": "1.0.1",
+  "name": "react-project-builder",
+  "version": "1.0.3",
   "description": "create react project",
   "bin": {
     "rpb": "bin/index.js"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "webpack --watch",
+    "build": "webpack",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "author": {
+    "name": "AmineVolk",
+    "email": "hamdi.amine.dev@gmail.com"
   },
   "dependencies": {
     "cli-spinner": "^0.2.10",
@@ -25,6 +29,7 @@
     "eslint-plugin-prettier": "^3.1.1",
     "prettier": "^1.18.2"
   },
+  "license": "MIT",
   "keywords": [
     "front",
     "react",
