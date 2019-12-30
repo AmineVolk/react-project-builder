@@ -5,6 +5,7 @@
   "bin": {
     "rpb": "bin/index.js"
   },
+  "repository": "AmineVolk/react-project-builder",
   "scripts": {
     "start": "webpack --watch",
     "build": "webpack",
