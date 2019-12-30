@@ -38,17 +38,17 @@ const createPackageFile = async (projectName, useRedux) => {
   packageFile.name = projectName;
   shell.touch("package.json");
   shell.ShellString(JSON.stringify(packageFile)).to("package.json");
-  //shell.echo("instaling dependencies");
+
   var npmInstall =
     "npm i react react-dom react-redux react-router react-router-dom react-scripts module-alias cra-alias && " +
     "npm i eslint prettier eslint-plugin-prettier eslint-plugin-react --save-dev";
 
-  if (useRedux) {
-    npmInstall + " && npm i redux";
-  }
-  await longCommand(npmInstall, () =>
-    console.log(`"dependencies installed"! 👍`)
-  );
+  await longCommand(npmInstall, () => {
+    if (useRedux) {
+      shell.exec("npm i redux");
+    }
+    console.log(`"dependencies installed"! 👍`);
+  });
 };
 
 module.exports = { createPackageFile };
