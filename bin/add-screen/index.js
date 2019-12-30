@@ -3,40 +3,46 @@
 var shell = require("shelljs");
 var program = require("commander");
 const { getScreenExp } = require("../data/screenExp");
-const { getScreenContainerExp } = require("../data/screenContainerExp")
-const { checkAddScreenOptions } = require("../helper/checkOptions")
-
+const { getScreenContainerExp } = require("../data/screenContainerExp");
+const { checkAddScreenOptions } = require("../helper/checkOptions");
 
 const addRouteInRoutesFile = (componentName, path, isUseRedux) => {
-
-  let lineToImportComponent = shell.exec('grep -n "import React from" src/app/Routes.js').stdout;
+  let lineToImportComponent = shell.exec(
+    'grep -n "import React from" src/app/Routes.js'
+  ).stdout;
   lineToImportComponent = parseInt(lineToImportComponent.split(":")[0]) + 1;
-  shell.echo(`lineToImportComponent ${lineToImportComponent} ${typeof lineToImportComponent}`);
+  shell.echo(
+    `lineToImportComponent ${lineToImportComponent} ${typeof lineToImportComponent}`
+  );
 
   let route;
 
   if (isUseRedux) {
-    const importComponent = `import ${componentName} from "./screens/${componentName}/${componentName}Container.js"`;
+    const importComponent = `import ${componentName} from "./screens/${componentName}/${componentName}Container.js";`;
 
     shell.exec(`sed -i.bak '${lineToImportComponent}i\\
       ${importComponent}\\
       ' src/app/Routes.js`).stdout;
   } else {
-    const importComponent = `import ${componentName} from ./screens/${componentName}/index.jsx`;
+    const importComponent = `import ${componentName} from "./screens/${componentName}/index.jsx";`;
     shell.exec(`sed -i.bak '${lineToImportComponent}i\\
       ${importComponent}\\
       ' src/app/Routes.js`).stdout;
   }
 
-  let lineToAddRouteInSwitch = shell.exec('grep -n "<Switch>" src/app/Routes.js').stdout;
+  let lineToAddRouteInSwitch = shell.exec(
+    'grep -n "<Switch>" src/app/Routes.js'
+  ).stdout;
   lineToAddRouteInSwitch = parseInt(lineToAddRouteInSwitch.split(":")[0]) + 1;
-  shell.echo(`lineToAddRouteInSwitch ${lineToAddRouteInSwitch} ${typeof lineToAddRouteInSwitch}`);
+  shell.echo(
+    `lineToAddRouteInSwitch ${lineToAddRouteInSwitch} ${typeof lineToAddRouteInSwitch}`
+  );
   route = `<Route path="${path}" history={history} component={${componentName}} />`;
 
   shell.exec(`sed -i.bak '${lineToAddRouteInSwitch}i\\
       ${route}\\
       ' src/app/Routes.js`).stdout;
-}
+};
 
 program
   .arguments("add-screens")
@@ -46,19 +52,27 @@ program
   .action((argument, options) => {
     if (checkAddScreenOptions(options)) {
       let name = program.name.replace(/^\w/, c => c.toUpperCase());
-      const isUseRedux = program.useRedux != undefined && program.useRedux === "yes";
-      shell.mkdir(`src/app/screens/${name}`);
-      shell.ShellString(getScreenExp(name)).to(`src/app/screens/${name}/index.jsx`);
+      const isUseRedux =
+        program.useRedux != undefined && program.useRedux === "yes";
+      //shell.mkdir(`src/app/screens/${name}`);
+      shell.exec(`mkdir src/app/screens/${name}`, error => {
+        if (error) {
+          shell.echo(`Failed to add ${name} screen !`);
+        } else {
+          shell
+            .ShellString(getScreenExp(name))
+            .to(`src/app/screens/${name}/index.jsx`);
 
-      if (isUseRedux) {
-        shell.ShellString(getScreenContainerExp(name)).
-          to(`src/app/screens/${name}/${name}Container.js`)
-      }
+          if (isUseRedux) {
+            shell
+              .ShellString(getScreenContainerExp(name))
+              .to(`src/app/screens/${name}/${name}Container.js`);
+          }
 
-      addRouteInRoutesFile(name, program.path, isUseRedux);
-      shell.echo(`Screen ${name} created successfully`);
+          addRouteInRoutesFile(name, program.path, isUseRedux);
+          shell.echo(`Screen ${name} created successfully`);
+        }
+      });
     }
-
-
   })
   .parse(process.argv);
