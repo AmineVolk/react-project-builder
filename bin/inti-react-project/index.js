@@ -34,7 +34,7 @@ program
       const isUseRedux =
         program.useRedux != undefined && program.useRedux === "yes";
 
-      shell.exec(`${program.name}`, async error => {
+      shell.exec(`mkdir ${program.name}`, async error => {
         if (error) {
           shell.echo(`The folder ${program.name} is already exist`);
         } else {
