@@ -22,16 +22,13 @@ const packageFile = {
       "last 1 safari version"
     ]
   },
-  "husky": {
-    "hooks": {
+  husky: {
+    hooks: {
       "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "git add"
-    ]
+    "*.js": ["eslint --fix", "git add"]
   }
 };
 const longCommand = (command, onSuccess) => {
@@ -51,8 +48,8 @@ const createPackageFile = async (projectName, useRedux) => {
   shell.ShellString(JSON.stringify(packageFile)).to("package.json");
 
   var npmInstall =
-    "npm i react react-dom react-redux react-router react-router-dom react-scripts module-alias cra-alias husky && " +
-    "npm i eslint prettier eslint-plugin-prettier eslint-plugin-react --save-dev";
+    "npm i react react-dom react-redux react-router react-router-dom react-scripts module-alias cra-alias && " +
+    "npm i eslint prettier eslint-plugin-prettier eslint-plugin-react husky lint-staged --save-dev";
 
   await longCommand(npmInstall, () => {
     if (useRedux) {

@@ -40,8 +40,6 @@ program
         } else {
           shell.cd(`${program.name}`);
 
-          await createPackageFile(program.name, isUseRedux);
-
           //init folders
           shell.mkdir("src");
           shell.mkdir("src/app");
@@ -52,7 +50,14 @@ program
           shell.mkdir("src/app/res");
           shell.mkdir("public");
 
+          //init git
+          shell.exec("git init");
+          shell.ShellString("node_modules").to(".gitignore");
+
+          await createPackageFile(program.name, isUseRedux);
+
           //init files
+
           shell.ShellString(R.content).to("src/app/res/R.js");
           shell.ShellString(indexHtml.content).to("public/index.html");
           shell.ShellString(history.content).to("src/app/history.js");
@@ -107,6 +112,7 @@ program
             .to("src/app/config/rpbConfig.json");
 
           shell.echo(`Project ${program.name} created successfully`);
+          shell.exec("npm start");
         }
       });
     }

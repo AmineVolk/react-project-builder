@@ -1,6 +1,6 @@
 {
   "name": "react-project-builder",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "create react project",
   "bin": {
     "rpb": "bin/index.js"
