@@ -9,7 +9,7 @@ npm install react-project-builder -g
 
 ## Create project :
 ``` bash
-rpb init-project --name projectName --use-redux yes 
+rpb init-project --name project-name --use-redux yes 
 ```
 
 by default --use-redux value is `no` if you don't want to create a project using redux

@@ -62,6 +62,7 @@ program
           shell.ShellString(indexHtml.content).to("public/index.html");
           shell.ShellString(history.content).to("src/app/history.js");
           shell.ShellString(jsconfig.content).to("jsconfig.json");
+          shell.ShellString("SKIP_PREFLIGHT_CHECK=true").to(".env");
           shell
             .ShellString(JSON.stringify(eslint.content))
             .to(".eslintrc.json");
@@ -112,7 +113,7 @@ program
             .to("src/app/config/rpbConfig.json");
 
           shell.echo(`Project ${program.name} created successfully`);
-          shell.exec("npm start");
+          shell.echo(`execute : cd ${program.name} && npm run start`);
         }
       });
     }
