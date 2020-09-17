@@ -31,13 +31,12 @@ const packageFile = {
     "*.js": ["eslint --fix", "git add"]
   }
 };
-const longCommand = (command, onSuccess) => {
+const longCommandWithSpinner = (command, waitingMessage) => {
   return new Promise((resolve, reject) => {
     var process = spawn(command, { shell: true });
-    var spinner = ora("Installing dependencies...").start();
+    var spinner = ora(waitingMessage).start();
     process.on("exit", () => {
       spinner.stop();
-      onSuccess();
       resolve();
     });
   });
@@ -47,16 +46,15 @@ const createPackageFile = async (projectName, useRedux) => {
   shell.touch("package.json");
   shell.ShellString(JSON.stringify(packageFile)).to("package.json");
 
-  var npmInstall =
+  var npmInstallCommand =
     "npm i react react-dom react-redux react-router react-router-dom react-scripts module-alias cra-alias && " +
     "npm i eslint prettier eslint-plugin-prettier eslint-plugin-react husky lint-staged --save-dev";
 
-  await longCommand(npmInstall, () => {
-    if (useRedux) {
-      shell.exec("npm i redux");
-    }
-    console.log(`"dependencies installed"! 👍`);
-  });
+  await longCommandWithSpinner(npmInstallCommand, "Installing dependencies...");
+  if (useRedux) {
+    shell.exec("npm i redux");
+  }
+  console.log(`"dependencies installed"! 👍`);
 };
 
 module.exports = { createPackageFile };
