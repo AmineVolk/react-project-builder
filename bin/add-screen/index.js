@@ -54,7 +54,6 @@ program
       let name = program.name.replace(/^\w/, c => c.toUpperCase());
       const isUseRedux =
         program.useRedux != undefined && program.useRedux === "yes";
-      //shell.mkdir(`src/app/screens/${name}`);
       shell.exec(`mkdir src/app/screens/${name}`, error => {
         if (error) {
           shell.echo(`Failed to add ${name} screen !`);

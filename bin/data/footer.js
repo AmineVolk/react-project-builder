@@ -1,5 +1,4 @@
-const content = 
-`import R from "@res/R.js";
+const content = `import R from "@res/R.js";
 import React from "react";
 const Footer = () => {
     const linkStyle = {
@@ -18,6 +17,6 @@ const Footer = () => {
 
     </div>
 }
-export default Footer;`
+export default Footer;`;
 
-module.exports.footer = { content }
+module.exports.footer = { content };

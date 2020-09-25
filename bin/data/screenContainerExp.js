@@ -1,5 +1,5 @@
-const getScreenContainerExp = (name) => {
-    return `import actions from "@app/duck/actions";
+const getScreenContainerExp = name => {
+  return `import actions from "@app/duck/actions";
     import { connect } from "react-redux";
     import ${name} from "./index";
     const mapStateToProps = state => {

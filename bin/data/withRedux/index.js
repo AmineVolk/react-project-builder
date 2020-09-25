@@ -1,5 +1,5 @@
 module.exports.indexWithRedux = {
-content: `import React from "react";
+  content: `import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { Router } from "react-router-dom";
@@ -18,5 +18,4 @@ ReactDOM.render(
     </Provider>,
     document.getElementById("root")
 );`
-
-}
+};

@@ -8,6 +8,6 @@ const Routes = () => <Switch>
   <Route exact path="/" history={history} component={Home} />
   <Route path="/screenExp1" history={history} component={ScreenExp1} />
 </Switch>;
-export default Routes;`
+export default Routes;`;
 
 module.exports.routesWithRedux = { content };

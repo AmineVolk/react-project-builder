@@ -1,5 +1,5 @@
 module.exports.indexCss = {
-    content: `
+  content: `
 body {
     height: 100%;
     margin: 0;
@@ -19,4 +19,5 @@ html {
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
-`}
+`
+};

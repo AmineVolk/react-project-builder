@@ -9,4 +9,4 @@ module.exports.reducer = {
       } else return state;
     };
     export default testReducer;`
-}
+};

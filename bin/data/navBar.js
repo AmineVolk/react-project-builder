@@ -1,5 +1,4 @@
-const content = 
-`import R from "@res/R";
+const content = `import R from "@res/R";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -26,5 +25,5 @@ const NavBar = (props) => {
         </div>
     </div>
 }
-export default NavBar;`
-module.exports.navBar = { content }
+export default NavBar;`;
+module.exports.navBar = { content };

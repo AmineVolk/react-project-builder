@@ -1,4 +1,4 @@
-const content=`{
+const content = `{
   "compilerOptions": {
     "baseUrl": "./src",
     "module": "commonjs",
@@ -28,6 +28,6 @@ const content=`{
       "@res/*": ["app/res/*" ]  
      }
   }
-}`
+}`;
 
-module.exports={content}
+module.exports = { content };

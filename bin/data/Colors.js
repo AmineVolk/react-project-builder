@@ -1,5 +1,5 @@
 module.exports.Colors = {
-    content: `export default {
+  content: `export default {
         pimary: "",
         background: "#F5F5F5",
         primayDark: "",
@@ -8,4 +8,4 @@ module.exports.Colors = {
     
     };
     `
-}
+};
